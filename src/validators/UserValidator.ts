@@ -3,32 +3,31 @@ import * as yup from 'yup';
 import { UsersRepository } from '../repositories/UserRepository';
 
 class UserValidator {
-    async idExist(id: number) {
+    async idExist(id: number): Promise<Boolean> {
         const repository = getCustomRepository(UsersRepository);
-
         const user = await repository.findOne(id);
-        return user ? true : false;
+        return !!user;
     }
 
-    async emailExist(email: string) {
+    async emailExist(email: string): Promise<Boolean> {
         const repository = getCustomRepository(UsersRepository);
-
         const user = await repository.findOne({ email });
-        return user ? true : false;
+        return !!user
     }
 
     createValidation() {
         return yup.object().shape({
-            name: yup.string().required('Nome é obrigatório'),
-            email: yup.string().required('E-mail é obrigatório'),
-            password: yup.string().required('Senha é obrigatório'),
+            name: yup.string().required('Name is required'),
+            email: yup.string().email('Should be e-mail').required('E-mail is required'),
+            password: yup.string().required('Password is required'),
         })
     }
 
     updateValidation() {
         return yup.object().shape({
+            id: yup.number().required('Id é obrigatório no parametro da requisição'),
             name: yup.string().optional(),
-            email: yup.string().optional(),
+            email: yup.string().email('Should be e-mail').optional(),
             password: yup.string().optional(),
         })
     }

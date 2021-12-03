@@ -1,4 +1,4 @@
-import { IUser } from './../models/interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { Request, Response } from "express"
 import { UserService } from "../services/UserService";
 import { ErrorVivinio } from "../validators/Exceptions/ErrorVivinio";
@@ -6,14 +6,14 @@ import { UserValidator } from "../validators/UserValidator";
 
 class UserController {
     async create(request: Request, response: Response) {
-        const { name, email, password } = request.body;
+        const { name, email, password }: IUser = request.body;
 
         const userValidator = new UserValidator();
         try {
-            if (await userValidator.emailExist(email)) throw 'Usuário já existe';
             await userValidator.createValidation().validate(request.body, { abortEarly: false });
+            if (await userValidator.emailExist(email)) throw 'User already exists';
         } catch (error) {
-            throw new ErrorVivinio(400, error.message);
+            throw new ErrorVivinio(400, error.message || error);
         }
 
         const userService = new UserService();
@@ -32,8 +32,8 @@ class UserController {
 
         const userValidator = new UserValidator();
         try {
-            if (!await userValidator.idExist(+id)) throw 'Usuário não existe';
             await userValidator.readByIdValidation().validate({ id: +id }, { abortEarly: false });
+            if (!await userValidator.idExist(+id)) throw 'User does not exist';
         } catch (error) {
             throw new ErrorVivinio(error.message ? 400 : 404, error.message || error)
         }
@@ -48,8 +48,8 @@ class UserController {
 
         const userValidator = new UserValidator();
         try {
-            if (!await userValidator.idExist(+id)) throw 'Usuário não existe';
-            await userValidator.readByIdValidation().validate({ id: +id }, { abortEarly: false });
+            await userValidator.deleteByIdValidation().validate({ id: +id }, { abortEarly: false });
+            if (!await userValidator.idExist(+id)) throw 'User does not exist';
         } catch (error) {
             throw new ErrorVivinio(error.message ? 400 : 404, error.message || error)
         }
@@ -65,11 +65,8 @@ class UserController {
 
         const userValidator = new UserValidator();
         try {
-            if (!await userValidator.idExist(+id)) throw 'Usuário não existe';
-            await userValidator.readByIdValidation().validate(
-                { id: +id, ...data }, 
-                { abortEarly: false }
-            );
+            await userValidator.updateValidation().validate({ id: +id, ...data }, { abortEarly: false });
+            if (!await userValidator.idExist(+id)) throw 'User does not exist';
         } catch (error) {
             throw new ErrorVivinio(error.message ? 400 : 404, error.message || error)
         }

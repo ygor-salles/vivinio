@@ -1,4 +1,4 @@
-import { IUser } from './../models/interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { hash } from 'bcryptjs';
 import { getCustomRepository, Repository } from 'typeorm';
 import { User } from '../models/User';

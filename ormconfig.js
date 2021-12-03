@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
     database: process.env.BD_DATABASE,
     synchronize: false,
     migrations: ['src/database/migrations/*.ts'],
-    entities: ['src/entities/*.ts'],
+    entities: ['src/models/*.ts'],
     cli: {
       migrationsDir: 'src/database/migrations',
     },
@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'development') {
       },
     },
     migrations: ['build/src/database/migrations/*.js'],
-    entities: ['build/src/entities/*.js'],
+    entities: ['build/src/models/*.js'],
     cli: {
       migrationsDir: 'build/src/database/migrations',
     },
