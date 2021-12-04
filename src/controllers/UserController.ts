@@ -56,7 +56,7 @@ class UserController {
 
         const userService = new UserService();
         await userService.deleteById(+id);
-        return response.status(200).json({ message: 'Usuário deleteado com sucesso' });
+        return response.status(200).json({ message: 'User deleted successfully' });
     }
     
     async updateById(request: Request, response: Response) {
@@ -73,7 +73,7 @@ class UserController {
 
         const userService = new UserService();
         await userService.updateById(+id, data);
-        return response.status(200).json({ message: 'Usuário atualizado com sucesso' });
+        return response.status(200).json({ message: 'User updated successfully' });
     }
 }
 

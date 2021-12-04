@@ -25,7 +25,7 @@ class UserValidator {
 
     updateValidation() {
         return yup.object().shape({
-            id: yup.number().required('Id é obrigatório no parametro da requisição'),
+            id: yup.number().required('Id is required in params'),
             name: yup.string().optional(),
             email: yup.string().email('Should be e-mail').optional(),
             password: yup.string().optional(),
@@ -34,13 +34,13 @@ class UserValidator {
 
     deleteByIdValidation() {
         return yup.object().shape({
-            id: yup.number().required('Id é obrigatório no parametro da requisição')
+            id: yup.number().required('Id is required in params')
         })
     }
 
     readByIdValidation() {
         return yup.object().shape({
-            id: yup.number().required('Id é obrigatório no parametro da requisição')
+            id: yup.number().required('Id is required in params')
         })
     }
 }

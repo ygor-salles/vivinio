@@ -13,6 +13,14 @@ export class CreateWines1638454203999 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
+                        name: 'name',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'producer',
+                        type: 'varchar'
+                    },
+                    {
                         name: 'country',
                         type: 'varchar'
                     },
@@ -31,14 +39,6 @@ export class CreateWines1638454203999 implements MigrationInterface {
                     {
                         name: 'image_url',
                         type: 'text'
-                    },
-                    {
-                        name: 'producer',
-                        type: 'varchar'
-                    },
-                    {
-                        name: 'name',
-                        type: 'varchar',
                     },
                     {
                         name: 'created_at',

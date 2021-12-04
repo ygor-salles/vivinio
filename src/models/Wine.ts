@@ -6,6 +6,12 @@ class Wine {
     readonly id: number
 
     @Column()
+    name: string
+
+    @Column()
+    producer: string
+
+    @Column()
     country: string
 
     @Column()
@@ -19,12 +25,6 @@ class Wine {
 
     @Column()
     image_url: string
-
-    @Column()
-    producer: string
-
-    @Column()
-    name: string
 
     @CreateDateColumn()
     created_at: Date
