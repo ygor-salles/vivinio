@@ -1,5 +1,6 @@
 import { hashSync } from "bcryptjs";
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserWine } from "./UserWine";
 
 @Entity('users')
 class User {
@@ -20,6 +21,10 @@ class User {
 
     @UpdateDateColumn()
     updated_at: Date
+
+    // Usuário tem vários vinhos e o vinho pertece a vários usuários N - N
+    @OneToMany(() => UserWine, userWine => userWine.users)
+    userWines: UserWine[]
 
     @BeforeInsert()
     hashPassword() {
