@@ -34,7 +34,8 @@ export class CreateWines1638454203999 implements MigrationInterface {
                     },
                     {
                         name: 'harmonizing',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable: true
                     },
                     {
                         name: 'image_url',
