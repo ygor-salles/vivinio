@@ -24,6 +24,7 @@ class WineValidator {
             type_grape: yup.string().required('Type grape is required'),
             harmonizing: yup.string().optional(),
             image_url: yup.string().optional(),
+            user_id: yup.number().required('User id is required'),
         })
     }
 
@@ -37,6 +38,7 @@ class WineValidator {
             type_grape: yup.string().optional(),
             harmonizing: yup.string().optional(),
             image_url: yup.string().optional(),
+            user_id: yup.number().optional(),
         })
     }
 

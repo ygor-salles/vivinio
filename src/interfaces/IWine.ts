@@ -7,4 +7,5 @@ export interface IWine {
     type_grape?: string,
     harmonizing?: string,
     image_url?: string,
+    user_id?: number, 
 }

@@ -1,5 +1,6 @@
 import { hashSync } from "bcryptjs";
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserWine } from "./UserWine";
 
 @Entity('users')
 class User {

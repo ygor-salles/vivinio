@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
+import { Wine } from "./Wine";
 
 @Entity('user_wine')
 class UserWine {
@@ -13,6 +15,14 @@ class UserWine {
 
     @CreateDateColumn()
     created_at: Date
+
+    @ManyToOne(() => Wine)
+    @JoinColumn({name: 'wine_id'})
+    wine: Wine;
+
+    @ManyToOne(() => User)
+    @JoinColumn({name: 'user_id'})
+    user: User;
 }
 
 export { UserWine }
