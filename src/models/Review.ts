@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Wine } from "./Wine";
 
 @Entity('reviews')
@@ -21,7 +21,8 @@ class Review {
     @Column()
     wine_id: number
 
-    @ManyToOne(() => Wine, wine => wine.reviews)
+    @JoinColumn({ name: 'wine_id' })
+    @ManyToOne(() => Wine)
     wine: Wine
 }
 

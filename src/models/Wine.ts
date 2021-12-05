@@ -33,14 +33,6 @@ class Wine {
 
     @UpdateDateColumn()
     updated_at: Date
-
-    // Vinho tem vários reviews 1 - N
-    @OneToMany(() => Review, review => review.wine)
-    reviews: Review[]
-
-    // Usuário tem vários vinhos e o vinho pertece a vários usuários N - N
-    @OneToMany(() => UserWine, userWine => userWine.wines)
-    userWines: UserWine[]
 }
 
 export { Wine }

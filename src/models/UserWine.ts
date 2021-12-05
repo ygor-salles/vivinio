@@ -16,11 +16,13 @@ class UserWine {
     @CreateDateColumn()
     created_at: Date
 
-    @ManyToOne(() => Wine, (wines) => wines.userWines)
-    wines: Wine;
+    @ManyToOne(() => Wine)
+    @JoinColumn({name: 'wine_id'})
+    wine: Wine;
 
-    @ManyToOne(() => User, (users) => users.userWines)
-    users: User;
+    @ManyToOne(() => User)
+    @JoinColumn({name: 'user_id'})
+    user: User;
 }
 
 export { UserWine }

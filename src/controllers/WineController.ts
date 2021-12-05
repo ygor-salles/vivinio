@@ -3,6 +3,7 @@ import { Request, Response } from "express"
 import { WineService } from "../services/WineService";
 import { ErrorVivinio } from "../validators/Exceptions/ErrorVivinio";
 import { WineValidator } from "../validators/WineValidator";
+import { UserWineService } from '../services/UserWineService';
 
 class WineController {
     async create(request: Request, response: Response) {
@@ -19,6 +20,10 @@ class WineController {
 
         const wineService = new WineService();
         const wine = await wineService.create(data);
+
+        const userWineService = new UserWineService();
+        await userWineService.handle({ user_id: data.user_id, wine_id: wine.id })
+
         return response.status(201).json(wine);
     }
 

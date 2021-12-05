@@ -22,10 +22,6 @@ class User {
     @UpdateDateColumn()
     updated_at: Date
 
-    // Usuário tem vários vinhos e o vinho pertece a vários usuários N - N
-    @OneToMany(() => UserWine, userWine => userWine.users)
-    userWines: UserWine[]
-
     @BeforeInsert()
     hashPassword() {
         this.password = hashSync(this.password, 8);
