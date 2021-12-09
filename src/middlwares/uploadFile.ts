@@ -7,8 +7,23 @@ const firebaseActive = true
 if (firebaseActive) {
   UPLOAD_IMAGE = multer({
     storage: multer.memoryStorage(),
-    limits: { files: 1024 * 1024 }
-  })
+    limits: { files: 1024 * 1024 },
+    fileFilter: (request, file, cb) => {
+      const extensionImage = [
+        'image/png',
+        'image/jpg',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/gif',
+      ].find(formatAccept => formatAccept == file.mimetype);
+  
+      if (extensionImage) {
+        return cb(null, true);
+      }
+  
+      return cb(null, false);
+    }, 
+  });
 } else {
   UPLOAD_IMAGE = multer({
     storage: multer.diskStorage({
