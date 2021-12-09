@@ -18,10 +18,12 @@ const folder_app = process.env.folder_app || 'vivinio';
 class StorageService {
     storageRef = firebase.app().storage().ref();
 
-    async subirImagen(nombre: string, arquivo: any) {
+    async subirImagen(nombre: string, arquivo: Express.Multer.File) {
         try {
-            let respuesta = await this.storageRef.child(`${folder_app}/${nombre}`).put(arquivo)
-            return await respuesta.ref.getDownloadURL();
+          const encoded = arquivo.buffer.toString('base64')
+          const base64 = `data:${arquivo.mimetype};base64,${encoded}`;
+          let respuesta = await this.storageRef.child(`${folder_app}/${nombre}`).putString(base64, 'data_url')
+          return await respuesta.ref.getDownloadURL();
         } catch (err: any) {
             console.log(err.message || 'Falha ao enviar imagem para o Firebase')
             return null;
