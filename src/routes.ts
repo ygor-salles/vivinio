@@ -23,11 +23,10 @@ router.get('/users/:id', auth, userController.readById);
 router.put('/users/:id', auth, userController.updateById);
 router.delete('/users/:id', auth, userController.deleteById);
 
-// router.post('/wines', auth, UPLOAD_IMAGE.single('image'), wineController.create);
-router.post('/wines', UPLOAD_IMAGE.single('image'), wineController.create);
+router.post('/wines', auth, UPLOAD_IMAGE.single('image'), wineController.create);
 router.get('/wines', wineController.read);
 router.get('/wines/:id', wineController.readById);
-router.put('/wines/:id', auth, wineController.updateById);
+router.put('/wines/:id', auth, UPLOAD_IMAGE.single('image'), wineController.updateById);
 router.delete('/wines/:id', auth, wineController.deleteById);
 
 router.post('/reviews', auth, reviewController.create);

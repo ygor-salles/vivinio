@@ -4,10 +4,7 @@ import { WineService } from "../services/WineService";
 import { ErrorVivinio } from "../validators/Exceptions/ErrorVivinio";
 import { WineValidator } from "../validators/WineValidator";
 import { UserWineService } from '../services/UserWineService';
-import { StorageService } from '../firebase';
-import fs from 'fs';
-
-const firebaseActive = false
+import { removeImage, uploadImage } from './UploadController';
 
 class WineController {
     async create(request: Request, response: Response) {
@@ -25,22 +22,8 @@ class WineController {
         } catch (error) {
             throw new ErrorVivinio(400, error.message || error);
         }
-        
-        const nomeArquivo = `${Date.now()}_${request.file.originalname}`
-        
-        if(firebaseActive) {
-            console.log('Caiu firebase', request.file)
-            const storageService = new StorageService();
-            data.image_url = await storageService.subirImagen(nomeArquivo, request.file)
-        } 
-        else {
-            const base64 = request.file.buffer.toString('base64');
-            fs.writeFile(`./src/uploads/images/${nomeArquivo}`, base64, 'base64', (err) => {
-                if (err) console.log('Erro upar imagem')
-            })
-            console.log('Caiu upload', request.file)
-            data.image_url = `uploads/images/${nomeArquivo}`;
-        }
+
+        data.image_url = await uploadImage(data, request);
 
         const wineService = new WineService();
         const wine = await wineService.create(data);
@@ -85,6 +68,8 @@ class WineController {
         }
 
         const wineService = new WineService();
+        await removeImage(+id, wineService);
+
         await wineService.deleteById(+id);
         return response.status(200).json({ message: 'Wine deleted successfully' });
     }
@@ -92,16 +77,23 @@ class WineController {
     async updateById(request: Request, response: Response) {
         const { id } = request.params;
         const { ...data }: IWine = request.body;
+        data.user_id = +data.user_id
+        console.log({ id: +id, ...data  })
 
         const wineValidator = new WineValidator();
         try {
-            await wineValidator.updateValidation().validate({ id: +id, ...data }, { abortEarly: false });
+            await wineValidator.updateValidation().validate({ id: +id, ...data  }, { abortEarly: false });
             if (!await wineValidator.idExist(+id)) throw 'Wine does not exist';
         } catch (error) {
             throw new ErrorVivinio(error.message ? 400 : 404, error.message || error)
         }
 
         const wineService = new WineService();
+        if (request.file) {
+            data.image_url =  await uploadImage(data, request);
+            await removeImage(+id, wineService);
+        }
+
         await wineService.updateById(+id, data);
         return response.status(200).json({ message: 'Wine updated successfully' });
     }

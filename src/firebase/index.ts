@@ -38,7 +38,7 @@ class StorageService {
         try {
           await this.storageRef.child(`${folder_app}/${name_organization}${dataImg}`).delete()
         } catch (err: any) {
-          console.log(err.message || 'Falha ao enviar imagem para o Firebase')
+          console.log(err.message || 'Falha ao deletar imagem do Firebase')
         }
       }
     
@@ -46,7 +46,7 @@ class StorageService {
         try {
           return await this.storageRef.child(`${folder_app}/${nameFile}`).getDownloadURL()
         } catch (err: any) {
-          console.log(err.message || 'Falha ao enviar imagem para o Firebase')
+          console.log(err.message || 'Falha ao visualizar imagem do Firebase')
           return null
         }
       }
