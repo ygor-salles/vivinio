@@ -36,7 +36,6 @@ class WineValidator {
             type: yup.string().optional(),
             type_grape: yup.string().optional(),
             harmonizing: yup.string().optional(),
-            user_id: yup.number().optional(),
         })
     }
 

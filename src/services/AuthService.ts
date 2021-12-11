@@ -34,7 +34,7 @@ class AuthService {
       process.env.TOKEN_SECRET,
       {
         subject: user.id.toString(),
-        expiresIn: '1d',
+        expiresIn: process.env.TOKEN_EXPIRE || '1d',
       },
     );
 

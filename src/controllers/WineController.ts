@@ -9,14 +9,19 @@ import { removeImage, uploadImage } from './UploadController';
 class WineController {
     async create(request: Request, response: Response) {
         const { ...data }: IWine = request.body;
+        data.user_id = +data.user_id;
 
+        const userWineService = new UserWineService();
         const wineValidator = new WineValidator();
         try {
             await wineValidator.createValidation().validate(request.body, { abortEarly: false });
             
             if (await wineValidator.nameProducerExists(data.name, data.producer))
                 throw 'Wine already exists';
-            
+
+            if (!await userWineService.userExists(data.user_id))
+                throw 'user_id does not exists'
+
             if (!request.file) 
                 throw 'Image is required or invalid extension. It should be only (png, jpg, jpeg, pjpeg, gif)' 
         } catch (error) {
@@ -28,7 +33,6 @@ class WineController {
         const wineService = new WineService();
         const wine = await wineService.create(data);
 
-        const userWineService = new UserWineService();
         await userWineService.handle({ user_id: data.user_id, wine_id: wine.id })
 
         return response.status(201).json(wine);
@@ -78,11 +82,11 @@ class WineController {
         const { id } = request.params;
         const { ...data }: IWine = request.body;
         data.user_id = +data.user_id
-        console.log({ id: +id, ...data  })
 
         const wineValidator = new WineValidator();
         try {
             await wineValidator.updateValidation().validate({ id: +id, ...data  }, { abortEarly: false });
+            
             if (!await wineValidator.idExist(+id)) throw 'Wine does not exist';
         } catch (error) {
             throw new ErrorVivinio(error.message ? 400 : 404, error.message || error)
@@ -95,6 +99,7 @@ class WineController {
         }
 
         await wineService.updateById(+id, data);
+        
         return response.status(200).json({ message: 'Wine updated successfully' });
     }
 }

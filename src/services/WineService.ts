@@ -31,7 +31,8 @@ class WineService {
     }
 
     async updateById(id: number, data: IWine) {
-        await this.repositoryWine.update(id, data);
+        const wine = this.repositoryWine.create(data)
+        await this.repositoryWine.update(id, wine);
     }
 }
 

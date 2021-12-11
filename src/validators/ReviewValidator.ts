@@ -22,7 +22,6 @@ class ReviewValidator {
             id: yup.number().required('Id is required in params'),
             review: yup.string().optional(),
             evaluation: yup.number().optional(),
-            wine_id: yup.number().optional()
         })
     }
 

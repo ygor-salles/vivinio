@@ -13,7 +13,6 @@ class UserController {
             await userValidator.createValidation().validate(request.body, { abortEarly: false });
             if (await userValidator.emailExist(email)) throw 'User already exists';
         } catch (error) {
-            console.log('Caiu aqui')
             throw new ErrorVivinio(400, error.message || error);
         }
 

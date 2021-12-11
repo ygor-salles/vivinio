@@ -31,7 +31,7 @@ router.delete('/wines/:id', auth, wineController.deleteById);
 
 router.post('/reviews', auth, reviewController.create);
 router.put('/reviews/:id', auth, reviewController.updateById);
-router.delete('/reviews/:id',  reviewController.deleteById);
+router.delete('/reviews/:id', auth, reviewController.deleteById);
 
 router.post('/login', authController.handle)
 

@@ -4,14 +4,16 @@ import { IWine } from "../interfaces/IWine";
 import fs from 'fs';
 import { WineService } from "../services/WineService";
 
-const firebaseActive = false;
+const firebaseActive = process.env.firebaseActive === 'true' ? true : false;
+const name_app = process.env.name_app || 'Vivinio';
 
 export async function uploadImage(data: IWine, request: Request) {
     const storageService = new StorageService();
-    const nomeArquivo = `${Date.now()}_${request.file.originalname}`;
     if (firebaseActive) {
+        const nomeArquivo = `${name_app}_${Date.now()}`;
         data.image_url = await storageService.subirImagen(nomeArquivo, request.file);
     } else {
+        const nomeArquivo = `${Date.now()}_${request.file.originalname}`;
         const base64 = request.file.buffer.toString('base64');
         fs.writeFile(`./src/uploads/images/${nomeArquivo}`, base64, 'base64', (err) => {
             if (err) console.log('Error upload image repository ->', err.message)

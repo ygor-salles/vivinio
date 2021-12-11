@@ -3,22 +3,13 @@ import { getCustomRepository } from 'typeorm';
 import { UserWineRepository } from '../repositories/UserWineRepository';
 import { UsersRepository } from '../repositories/UserRepository';
 import { WinesRepository } from '../repositories/WineRepository';
+import { ErrorVivinio } from '../validators/Exceptions/ErrorVivinio';
 
 class UserWineService {
-    async handle(relation: IUserWine) {
+    async handle(relation: IUserWine): Promise<void> {
         const reposRelation = getCustomRepository(UserWineRepository);            
-        // Verifica se o id das relações existem
-        if (await this.userExists(relation.user_id) && await this.wineExists(relation.wine_id)) {
-            
-            // Verifica não possui relações duplicadas
-            const relationAlreadyExists = await reposRelation.findOne({
-                where: { user_id: relation.user_id, wine_id: relation.wine_id }
-            });
-            if (!relationAlreadyExists) {
-                const userWine = reposRelation.create({ user_id: relation.user_id, wine_id: relation.wine_id });
-                await reposRelation.save(userWine);
-            }
-        } 
+        const userWine = reposRelation.create({ user_id: relation.user_id, wine_id: relation.wine_id });
+        await reposRelation.save(userWine);            
     }
 
     async userExists(id: number): Promise<Boolean> {
