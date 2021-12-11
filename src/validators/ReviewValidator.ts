@@ -11,7 +11,7 @@ class ReviewValidator {
 
     createValidation() {
         return yup.object().shape({
-            review: yup.string().required('Review is required'),
+            review: yup.string().optional(),
             evaluation: yup.number().required('Evaluation is required'),
             wine_id: yup.number().required('Wine id referece is required')
         })

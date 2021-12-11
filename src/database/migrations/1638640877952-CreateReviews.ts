@@ -14,7 +14,8 @@ export class CreateReviews1638640877952 implements MigrationInterface {
                     },
                     {
                         name: 'review',
-                        type: 'text'
+                        type: 'text',
+                        isNullable: true
                     },
                     {
                         name: 'evaluation',
