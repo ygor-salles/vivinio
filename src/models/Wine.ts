@@ -33,6 +33,9 @@ class Wine {
 
     @UpdateDateColumn()
     updated_at: Date
+
+    @OneToMany(() => UserWine, userwine => userwine.wine)
+    user_wine: UserWine[];
 }
 
 export { Wine }

@@ -26,6 +26,9 @@ class User {
     hashPassword() {
         this.password = hashSync(this.password, 8);
     }
+
+    @OneToMany(() => UserWine, userwine => userwine.user, { eager: true })
+    user_wine: UserWine[];
 }
 
 export { User }

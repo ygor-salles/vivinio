@@ -16,12 +16,12 @@ class UserWine {
     @CreateDateColumn()
     created_at: Date
 
-    @ManyToOne(() => Wine)
-    @JoinColumn({name: 'wine_id'})
+    @ManyToOne(() => Wine, wine => wine.user_wine, { eager: true })
+    @JoinColumn({name: 'wine_id', referencedColumnName: 'id'})
     wine: Wine;
 
-    @ManyToOne(() => User)
-    @JoinColumn({name: 'user_id'})
+    @ManyToOne(() => User, user => user.user_wine)
+    @JoinColumn({name: 'user_id', referencedColumnName: 'id'})
     user: User;
 }
 
