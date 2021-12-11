@@ -11,14 +11,14 @@ export async function uploadImage(data: IWine, request: Request) {
     const storageService = new StorageService();
     if (firebaseActive) {
         const nomeArquivo = `${name_app}_${Date.now()}`;
-        data.image_url = await storageService.subirImagen(nomeArquivo, request.file);
+        data.image_url = await storageService.subirImagen(nomeArquivo, request.file) || '';
     } else {
         const nomeArquivo = `${Date.now()}_${request.file.originalname}`;
         const base64 = request.file.buffer.toString('base64');
         fs.writeFile(`./src/uploads/images/${nomeArquivo}`, base64, 'base64', (err) => {
             if (err) console.log('Error upload image repository ->', err.message)
         })
-        data.image_url = `src/uploads/images/${nomeArquivo}`;
+        data.image_url = `src/uploads/images/${nomeArquivo}` || '';
     }
     return data.image_url;
 }

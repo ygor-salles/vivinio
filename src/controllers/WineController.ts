@@ -28,7 +28,7 @@ class WineController {
             throw new ErrorVivinio(400, error.message || error);
         }
 
-        data.image_url = await uploadImage(data, request);
+        data.image_url = await uploadImage(data, request) || '';
 
         const wineService = new WineService();
         const wine = await wineService.create(data);
@@ -94,7 +94,7 @@ class WineController {
 
         const wineService = new WineService();
         if (request.file) {
-            data.image_url =  await uploadImage(data, request);
+            data.image_url =  await uploadImage(data, request) || '';
             await removeImage(+id, wineService);
         }
 
