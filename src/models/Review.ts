@@ -21,8 +21,8 @@ class Review {
     @Column()
     wine_id: number
 
+    @ManyToOne(() => Wine, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinColumn({ name: 'wine_id' })
-    @ManyToOne(() => Wine)
     wine: Wine
 }
 

@@ -36,6 +36,9 @@ class Wine {
 
     @OneToMany(() => UserWine, userwine => userwine.wine)
     user_wine: UserWine[];
+
+    @OneToMany(() => Review, review => review.wine, { eager: true })
+    reviews: Review[];
 }
 
 export { Wine }
