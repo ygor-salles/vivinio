@@ -18,7 +18,7 @@ router.get('/', (req: Request, resp: Response) =>
 );
 
 router.post('/users', userController.create);
-router.get('/users', auth, userController.read);
+router.get('/users', userController.read);
 router.get('/users/:id', auth, userController.readById);
 router.put('/users/:id', auth, userController.updateById);
 router.delete('/users/:id', auth, userController.deleteById);

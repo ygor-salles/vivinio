@@ -30,6 +30,7 @@ class AuthService {
     const token = sign(
       {
         email: user.email,
+        name: user.name
       },
       process.env.TOKEN_SECRET,
       {
