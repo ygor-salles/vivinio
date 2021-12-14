@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "target": "es2016",
+    "module": "commonjs",                                
     "lib": ["es6"],
     "outDir": "build",
-    "rootDir": "./",
-    "experimentalDecorators": true,                   
-    "emitDecoratorMetadata": true,                    
-    "module": "commonjs",                                
-    "esModuleInterop": true,                             
-    "forceConsistentCasingInFileNames": true,            
+    "rootDir": "src",
     "strict": false,                                     
     "strictPropertyInitialization": false,             
-    "skipLibCheck": true                                 
+    "experimentalDecorators": true,                   
+    "emitDecoratorMetadata": true,                    
+    "esModuleInterop": true,                             
+    "skipLibCheck": true,                                 
+    "forceConsistentCasingInFileNames": true,            
   }
 }
