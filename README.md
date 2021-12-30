@@ -14,25 +14,29 @@ API em ExpressJS. Aplicação backend para cadastramento de vinhos, autenticaç�
 
 ### DOCKER
 
-- Após preenchida as variáveis de ambiente subir o container do docker
+- Após preenchida as variáveis de ambiente, subir o container do docker pelo terminal com o comando:
 
 ```bash
 docker-compose up
 ```
 
-### BACKEND
+### DEPENDÊNCIAS
 
-- Entrar no repositório backend do projeto com o terminal e executar o seguinte comando para instalar as dependências:
+- No terminal executar o comando para instalar as dependências:
 
 ```bash
 yarn
 ```
 
-- Executar as migrations para criar as tabelas do banco de dados:
+### MIGRATIONS
+
+- No terminal executar as migrations para criar as tabelas do banco de dados, com o comando:
 
 ```bash
 yarn typeorm migration:run
 ```
+
+### START
 
 - Finalizado! Basta agora executar a aplicação backend com o seguinte comando:
 
