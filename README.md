@@ -66,3 +66,19 @@ yarn typeorm migration:run
 ```bash
 yarn typeorm migration:revert
 ```
+
+## Gerar o build
+
+```bash
+yarn build
+```
+
+## Modelagem da aplicação
+
+<img src="https://raw.githubusercontent.com/ygor-salles/vivinio/dev/assets/Modelagem.PNG"
+  alt="ModelagemBanco">
+  
+ ## Collection das requisições - insomnia
+ 
+ - As collections das requisições backend `Collection-Insomnia.json` se econtra dentro da pasta `assets` deste projeto.
+
